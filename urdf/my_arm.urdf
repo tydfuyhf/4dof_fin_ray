@@ -94,6 +94,27 @@
     </visual>
   </link> 
   
+  <!-- ================= gripper_base LINK ================= -->
+  <link name="gripper_base">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_arm_description/meshes/visual/gripper_base.stl"/>
+      </geometry>
+      <material name="light_gray"/>
+    </visual>
+  </link>
+  
+  <!-- ================= XL330_without_idler2 ================= -->
+  <link name="joint_without_idler2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_arm_description/meshes/visual/joint_without_idler2.stl"/>
+      </geometry>
+    </visual>
+  </link>
+  
   <!-- ================= FIXED JOINT ================= -->
   <joint name="base_to_joint" type="fixed">
     <parent link="base_link"/>
@@ -120,6 +141,20 @@
     <parent link="robot_arm_link_2"/>
     <child link="joint_idler_3"/>
     <origin xyz="0.062 0.0687 0.018" rpy="-1.5708 0 1.5708"/>
+  </joint>
+  
+  <!-- ================= FIXED JOINT ================= -->
+  <joint name="gripperlink_to_joint_without_idler2" type="fixed">
+    <parent link="gripper_link2"/>
+    <child link="joint_without_idler2"/>
+    <origin xyz="-0.017 -0.0352 -0.0115" rpy="1.5708 -1.5708 0"/>
+  </joint>
+  
+  <!-- ================= FIXED JOINT ================= -->
+  <joint name="joint_without_idler2_to_gripper_base" type="fixed">
+    <parent link="joint_without_idler2"/>
+    <child link="gripper_base"/>
+    <origin xyz="0.002 -0.0119 0.007" rpy="-3.1416 0 0"/>
   </joint>
 
   <!-- ================= CONTINUOUS JOINT ================= -->
