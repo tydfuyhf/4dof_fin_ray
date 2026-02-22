@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<robot name="my_arm">
+  <material name="light_gray">
+    <color rgba="0.7 0.7 0.7 1"/>
+  </material>
+
+  <!-- ================= BASE LINK ================= -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_arm_description/meshes/visual/base_link.stl"/>
+      </geometry>
+      <material name="light_gray"/>
+    </visual>
+  </link>
+  <!-- ================= joint idler link1 ================= -->
+  <link name="joint_idler">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_arm_description/meshes/visual/joint_idler.stl"/>
+      </geometry>
+    </visual>
+  </link>
+  
+  <!-- ================= JOINT LINK 2================= -->
+  <link name="joint_without_idler">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_arm_description/meshes/visual/joint_without_idler.stl"/>
+      </geometry>
+    </visual>
+  </link>
+  <!-- ================= HORN CASE LINK ================= -->
+  <link name="horn_case">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_arm_description/meshes/visual/horn_case.stl"/>
+      </geometry>
+      <material name="light_gray"/>
+    </visual>
+  </link>
+  <!-- ================= robot_arm_link_1 ================= -->
+  <link name="robot_arm_link_1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_arm_description/meshes/visual/robot_arm_link_1.stl"/>
+      </geometry>
+      <material name="light_gray"/>
+    </visual>
+  </link> 
+  <!-- ================= JOINT LINK3 ================= -->
+  <link name="joint_idler_2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_arm_description/meshes/visual/joint_idler_2.stl"/>
+      </geometry>
+    </visual>
+  </link>  
+  
+  <!-- ================= JOINT LINK4 ================= -->
+  <link name="joint_idler_3">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_arm_description/meshes/visual/joint_idler_3.stl"/>
+      </geometry>
+    </visual>
+  </link> 
+
+  <!-- ================= robot_arm_link_2 ================= -->
+  <link name="robot_arm_link_2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_arm_description/meshes/visual/robot_arm_link_2.stl"/>
+      </geometry>
+      <material name="light_gray"/>
+    </visual>
+  </link> 
+  <!-- ================= gripper_link2 ================= -->
+  <link name="gripper_link2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_arm_description/meshes/visual/gripper_link2.stl"/>
+      </geometry>
+      <material name="light_gray"/>
+    </visual>
+  </link> 
+  
+  <!-- ================= FIXED JOINT ================= -->
+  <joint name="base_to_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="joint_without_idler"/>
+    <origin xyz="0.028 -0.0005 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================= FIXED JOINT ================= -->
+  <joint name="horn_case_to_joint_idler" type="fixed">
+    <parent link="horn_case"/>
+    <child link="joint_idler"/>
+    <origin xyz="-0.020276 -0.0275 -0.02735" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================= FIXED JOINT ================= -->
+  <joint name="arm1_to_joint3" type="fixed">
+    <parent link="robot_arm_link_1"/>
+    <child link="joint_idler_2"/>
+    <origin xyz="-0.0691 -0.106735 -0.039" rpy="-1.5708 3.1416 0"/>
+  </joint>
+
+  <!-- ================= FIXED JOINT ================= -->
+  <joint name="arm2_to_joint4" type="fixed">
+    <parent link="robot_arm_link_2"/>
+    <child link="joint_idler_3"/>
+    <origin xyz="0.062 0.0687 0.018" rpy="-1.5708 0 1.5708"/>
+  </joint>
+
+  <!-- ================= CONTINUOUS JOINT ================= -->
+  <joint name="joint_to_horn_case" type="continuous">
+    <parent link="joint_without_idler"/>
+    <child link="horn_case"/>
+    <!-- child origin in parent frame (m) -->
+    <origin xyz="0.0198 0.0265 0.02745" rpy="0 0 0"/>
+    <!-- rotate around parent Z axis -->
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- ================= revolute JOINT ================= -->
+  <joint name="joint_to_arm_link_1" type="revolute">
+  <parent link="joint_idler"/>
+  <child link="robot_arm_link_1"/>
+  <origin xyz="0.020276 0.03845 0.062239" rpy="0 1.5708 1.5708"/>
+  <axis xyz="0 0 1"/>
+  <limit 
+    lower="-1.0472"
+    upper="1.0472"
+    effort="5.0"
+    velocity="2.0"/>
+  </joint>
+  
+  <!-- ================= revolute JOINT ================= -->
+  <joint name="joint_to_arm_link_2" type="revolute">
+  <parent link="joint_idler_2"/>
+  <child link="robot_arm_link_2"/>
+  <origin xyz="-0.001696 0.017235 0.129" rpy="1.5708 1.5708 0"/>
+  <axis xyz="0 0 1"/>
+  <limit 
+    lower="-1.0472"
+    upper="1.0472"
+    effort="5.0"
+    velocity="2.0"/>
+  </joint>
+
+  <!-- ================= revolute JOINT ================= -->
+  <joint name="joint_to_gripper_link2" type="revolute">
+  <parent link="joint_idler_3"/>
+  <child link="gripper_link2"/>
+  <origin xyz="-0.0694 0.019 0.1296" rpy="1.5708 3.1416 0"/>
+  <axis xyz="0 0 1"/>
+  <limit 
+    lower="-1.0472"
+    upper="1.0472"
+    effort="5.0"
+    velocity="2.0"/>
+  </joint>
+</robot>
+
