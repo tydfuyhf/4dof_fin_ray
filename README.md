@@ -26,7 +26,7 @@ ros2 topic pub --once /tip_target geometry_msgs/msg/PoseStamped "{
   }
 }"
 ```
-
+![demo](./ik_4dof.gif)
 * topic: `/tip_target`
 * frame: `base_link`
 * unit: meter
