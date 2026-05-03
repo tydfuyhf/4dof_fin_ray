@@ -10,9 +10,8 @@ def generate_launch_description():
     pkg_share = get_package_share_directory(pkg_name)
 
     urdf_file = os.path.join(pkg_share, "urdf", "my_arm.urdf")
-    rviz_config = os.path.join(pkg_share, "rviz", "demo_config.rviz")
+    rviz_config = os.path.join(pkg_share, "rviz", "my_arm_ik.rviz")
 
-    # URDF 파일 읽기
     with open(urdf_file, 'r') as f:
         robot_desc = f.read()
 
