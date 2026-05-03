@@ -1,5 +1,7 @@
 # 4-DOF Fin Ray Robot Arm
 
+> **Status**: 3D-printed parts are complete. PC ↔ ESP32 communication is not yet implemented — the full hardware integration is still in progress.
+
 A 4-degree-of-freedom robotic arm with compliant fin-ray-style joints, controlled via ROS 2 Jazzy.
 All mechanical parts were **designed entirely in Fusion 360** from scratch and 3D-printed.
 
