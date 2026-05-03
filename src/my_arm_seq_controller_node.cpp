@@ -104,7 +104,7 @@ private:
     return cur + (e > 0.0 ? max_step : -max_step);
   }
 
-  void publishCurrent_() {
+  void publishCurrent() {
     sensor_msgs::msg::JointState js;
     js.header.stamp = this->now();
     js.name = joint_order_;
@@ -115,7 +115,7 @@ private:
   void onTick() {
     // Always publish something so robot_state_publisher updates smoothly
     if (!have_target_) {
-      publishCurrent_(); // hold initial pose forever until target arrives
+      publishCurrent();
       return;
     }
 
@@ -123,7 +123,7 @@ private:
     const double elapsed = (this->now() - first_target_time_).seconds();
     if (!started_) {
       if (elapsed < start_delay_sec_) {
-        publishCurrent_(); // still holding initial pose
+        publishCurrent();
         return;
       }
       started_ = true;
@@ -133,7 +133,6 @@ private:
     const double dt = 1.0 / std::max(1.0, rate_hz_);
     const double max_step = joint_speed_rps_ * dt;
 
-    // Move only active joint
     const size_t i = active_index_;
     const double err = target_q_[i] - current_q_[i];
 
@@ -143,7 +142,7 @@ private:
       current_q_[i] = stepToward(current_q_[i], target_q_[i], max_step);
     }
 
-    publishCurrent_();
+    publishCurrent();
   }
 
 private:

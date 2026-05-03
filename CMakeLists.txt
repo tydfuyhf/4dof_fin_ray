@@ -11,17 +11,12 @@ find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(Eigen3 REQUIRED)
 
-# =======================
-# Executables (추가)
-# =======================
-
 add_executable(my_arm_ik_node src/my_arm_ik_node.cpp)
 ament_target_dependencies(my_arm_ik_node
   rclcpp
   sensor_msgs
   geometry_msgs
 )
-
 target_link_libraries(my_arm_ik_node Eigen3::Eigen)
 
 add_executable(my_arm_seq_controller_node src/my_arm_seq_controller_node.cpp)
@@ -30,16 +25,12 @@ ament_target_dependencies(my_arm_seq_controller_node
   sensor_msgs
 )
 
-# Install executables
 install(TARGETS
   my_arm_ik_node
   my_arm_seq_controller_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# =======================
-
-# Install non-code resources
 install(DIRECTORY
   launch
   urdf
